@@ -1,0 +1,43 @@
+<div ng-controller="addController">
+    <!-- <h1>Add Form</h1> -->
+    <!-- List: {{list}} <br> -->
+    <!-- <form name="myForm" ng-submit="addFood()">
+        ID: 
+        <br>
+        Name: <input type="text" name="myName" ng-model="myName1" required pattern="\w{2,5}">
+        <span class="error" ng-show="myForm.myName.$dirty && myForm.myName.$error.required">Name is required</span>
+        <br>
+        Price: <input type="number" min=0 name="myPrice" ng-model="myPrice1" required pattern="\w{2,5}">
+        <span class="error" ng-show="myForm.myprice.$dirty && myForm.myPrice.$error.required">Price is required</span>
+        <br>
+        <input type="submit" ng-disabled="myForm.myID.$error.required || myForm.myName.$error.required || myForm.myPrice.$error.required">
+    </form> -->
+    <form name="myForm" ng-submit="addFood()">
+        <table>
+            <tr>
+                <td>Add Form</td>
+            </tr>
+            <tr>
+                <td>ID</td>
+            </tr>
+            <tr>
+                <td><input type="text" name="myID" ng-model="myID1" required pattern="\w{2,5}">
+                    <span class="error" ng-show="myForm.myID.$dirty && myForm.myID.$error.required">ID is required</span></td>
+            </tr>
+            <tr>
+                <td>Name</td>
+            </tr>
+            <tr>
+                <td><input type="text" name="myName" ng-model="myName1" required pattern="\w{2,5}">
+                    <span class="error" ng-show="myForm.myName.$dirty && myForm.myName.$error.required">Name is required</span></td>
+            </tr>
+            <tr>
+                <td>Price</td>
+            </tr>
+            <tr><td><input type="number" min="0" name="myPrice" ng-model="myPrice1" required pattern="\w{2,5}">
+                <span class="error" ng-show="myForm.myPrice.$dirty && myForm.myPrice.$error.required">Price is required</span></td></tr>
+            <tr><td><input type="submit" ng-disabled="myForm.myID.$error.required || myForm.myName.$error.required || myForm.myPrice.$error.required" value="Add"></td></tr>
+        </table>
+    </form>
+
+</div>

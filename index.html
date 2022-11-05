@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pretest</title>
+    <link rel="stylesheet" href="pretest.css">
+</head>
+<body ng-app="myApp">
+
+    <nav ng-controller="indexCtrl">
+        <a href="#!Home" ng-class="{active: isActive('/Home')}">Home</a>
+        <a href="#!Food" ng-class="{active: isActive('/Food')}">Food</a>
+        <a href="#!Add" ng-class="{active: isActive('/Add')}">Add New Food</a>
+        <a href="#!Contact" ng-class="{active: isActive('/Contact')}">Contact Us</a>
+    </nav>
+
+    <div ng-view></div>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular-route.js"></script>
+    <script>
+        var app = angular.module("myApp", ['ngRoute']);
+        app.config(function($routeProvider) {
+            $routeProvider
+            .when("/",{
+                templateUrl:"home.html"
+            })
+            .when("/Food",{
+                templateUrl:"food.html"
+            })
+            .when("/Add",{
+                templateUrl:"add.html"
+            })
+            .when("/Contact",{
+                templateUrl:"contact.html"
+            });
+        });
+        
+        app.run(function($rootScope, $http){
+            $http.get("food.json").then(function(rsp){
+                $rootScope.list = rsp.data.foodList;
+            })
+        })
+
+        app.controller("foodController",function($scope){
+            $scope.reverse = false;
+            $scope.sortOrder = function (f) {  
+                if($scope.myOrder == f){
+                    $scope.reverse = !$scope.reverse;
+                }
+                $scope.myOrder = f;
+            }
+            $scope.rmFood =function(data){
+               var index = $scope.list.indexOf(data);
+               $scope.list.splice(index,1);
+            }
+        })
+
+        app.controller("addController",function($scope){
+            $scope.addFood=function(){
+                //Tạo 1 đối tượng mới, lấy giá trị từ form
+                var newfood = {"ID": $scope.myID1, "Name":$scope.myName1, "Price":$scope.myPrice1}
+                $scope.list.push(newfood);
+                alert("Add new food successfully");
+            }
+        })
+        app.controller('indexCtrl',['$scope','$location', function ($scope,$location) {  
+            $scope.isActive = function (destination) {
+                return destination === $location.path();
+              }
+        }])
+
+    </script>
+</body>
+</html>
